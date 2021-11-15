@@ -1,0 +1,26 @@
+﻿@model IEnumerable<TradingPlat.Models.StockModel>
+
+
+
+<div class="mydiv">
+
+    <div class="container mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="font-weight-bold mb-3"><i class="far fa-list-alt mr-2"></i>Watch List</h1>
+            <input type="text" name="searchTerm" value="" class="w-25 rounded mr-2 inputStock" placeholder="Search stock" />
+        </div>
+
+        <div class="row mb-3 ml-1 mr-2 mt-2">
+
+            @foreach (var s in Model)
+            {
+                <div class="card p-2 col bg-white border-primary h-100">
+                    <a class="card-block stretched-link text-decoration-none" href="/home/getstockid/@s.StockID">
+                        <h5 class="card-text text-dark">@s.Symbol</h5>
+                        <p class="card-text">$Current Price</p>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,11 +1,21 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+::-webkit-scrollbar {
+    background-color: #63a4ff;
+    background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+    width: 22px;
+    height: 10px;
 }
+::-webkit-scrollbar-thumb {
+    background: white; /* opacity: 0; should do the thing either */
+}
+
+html::-webkit-scrollbar-track {
+   
+    background-size: 10px 30px;
+}
+
+
 
 /* Provide sufficient contrast against white background */
 a {
@@ -59,26 +69,97 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background: linear-gradient(to right top, #65dfc9, #6cdbeb) no-repeat;
-    /* Keep the inherited background full size. */
+    background-color: #63a4ff;
+    background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
     background-attachment: fixed;
     background-size: cover;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    height: 100vh;
 }
 
+div.container1 {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    height: 88vh;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    width: 83%;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    height: 7vh;
+  
+}
+
+
+
 .mydiv {
-    background: white;
+    background: linear-gradient( to right bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3) );
+    border-radius: 0 30px 30px 0;
+    justify-content: space-evenly;
+    height: 88vh;
+    overflow-y: auto;
+    width: 100%;
+}
+
+
+
+.glass {
+    position: absolute;
+    top: 20px;
+    height: 88vh;
+    right: 20px;
+    left: 20px;
+    width: 90%;
     background: linear-gradient( to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3) );
     border-radius: 2rem;
-    z-index: 2;
+    backdrop-filter: blur(2rem);
+    display: flex;
+    margin: auto;
+}
+
+
+.dashboard {
+    display: flex;
+    width: 17%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient( to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3) );
+    border-radius: 2rem 0 0 2rem;
     backdrop-filter: blur(2rem);
 }
 
+.link {
+    display: flex;
+    margin: 2rem 0rem;
+    padding: 1rem 5rem;
+    align-items: center;
+}
+
+.ul-nav{
+    display: flex;
+    flex-direction:column;
+}
+
+div.row{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap:20px;
+    grid-row-gap:20px;
+}
+
+div a.card-block{
+    display:flex;
+    justify-content:space-between;
+}
+
+div input.inputStock {
+    height:40px;
+}

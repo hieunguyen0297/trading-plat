@@ -23,12 +23,8 @@ namespace TradingPlat.Controllers
 
         public IActionResult Index()
         {
-            List<StockModel> stocks = new List<StockModel>();
-            using (var db = new StockDBContext())
-            {
-                stocks = db.Stocks.ToList();
-            }
-            return View("Index", stocks);
+            
+            return View();
         }
 
         public IActionResult GetStockID(int id)
