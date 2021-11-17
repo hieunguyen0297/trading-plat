@@ -9,6 +9,7 @@ namespace TradingPlat.Controllers
 {
     public class StockController : Controller
     {
+        //Get a list of stock when user accessing the Stock List page
         public IActionResult GetStocks()
         {
             List<StockModel> stocks = new List<StockModel>();

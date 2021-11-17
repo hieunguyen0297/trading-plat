@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using TradingPlat.Models;
 
@@ -22,15 +25,25 @@ namespace TradingPlat.Controllers
 
 
         public IActionResult Index()
-        {
-            
+        {          
             return View();
         }
 
-        public IActionResult GetStockID(int id)
+       
+        //This is the way to fetch price
+        public async Task<decimal> GetStockID()
         {
-            ViewBag.ID = id;
-            return View();
+            var URL = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo";
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync(URL);
+            var result = await response.Content.ReadAsStringAsync();
+
+            JObject obj = JObject.Parse(result);
+            decimal price = decimal.Parse((obj["Global Quote"]["05. price"]).ToString());
+            return price;
+
+            //ViewBag.ID = id;
+            //return View();
         }
         
 
