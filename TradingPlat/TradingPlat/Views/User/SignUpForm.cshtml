@@ -1,0 +1,46 @@
+﻿@model TradingPlat.Models.UserModel;
+
+<div class="mydiv">
+    <div style="display:flex; justify-content:center; align-items:center; height:100%">
+        <div class="container" style=" position:relative; height: 80%; padding: 20px; background-color: azure; width: 40%; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); display: flex; justify-content: center; align-items: center; flex-direction:column ">
+            <h1 style="position: absolute; top: 50px; font-weight: 600; text-align: center; color: cornflowerblue;">Create an account</h1>
+            <form asp-controller="User" asp-action="ProcessSignUp">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                @if (ViewBag.error != null)
+                {
+                    <span class="badge badge-danger">@ViewBag.error</span>
+                }
+                <div class="row mb-4 d-flex">
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label" asp-for="FirstName">First name</label>
+                            <input type="text" class="form-control" asp-for="FirstName" required />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label">Last name</label>
+                            <input type="text" class="form-control" required asp-for="LastName" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" required asp-for="Email" />
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" required asp-for="Password" />
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4" style="position: relative; top: 20px;">Sign up</button>
+            </form>
+            <p>@ViewBag.name</p>
+        </div>
+    </div>
+</div>

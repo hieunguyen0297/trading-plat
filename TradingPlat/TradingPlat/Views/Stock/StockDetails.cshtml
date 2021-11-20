@@ -1,0 +1,45 @@
+﻿@model  TradingPlat.Models.Company;
+
+<div class="mydiv">
+    <div class="container">
+        <div class="top-div">
+            <div class="company-name-div">
+                <h1>@Html.DisplayFor(model => model.Name)</h1>
+                <h6>Sector: @Html.DisplayFor(model => model.Sector)</h6>
+                <h6>Industry: @Html.DisplayFor(model => model.Industry)</h6>
+                <h5 class="symbol">@Html.DisplayFor(model => model.Symbol)</h5>
+            </div>
+            <div class="price-div">
+                <h2>$@Html.DisplayFor(model => model.StockLastestPrice)</h2>
+                <p>Percent changed: @Html.DisplayFor(model => model.ChangeInPercent)</p>
+                <button type="button" data-toggle="modal" data-target="#exampleModal">Buy</button>
+            </div>
+        </div>
+        <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+        <div class="middle-div">
+            <h3>Company Overview</h3>
+        </div>
+        <div class="bottom-div">
+            <div class="des-div">
+                <p>@Html.DisplayFor(model => model.Description)</p>
+            </div>
+            <div class="outter-details-divs">
+                <div class="details-div">
+                    <p><span>Exchange:</span> @Html.DisplayFor(model => model.Exchange)</p>
+                    <p><span>Analysis Price:</span> @Html.DisplayFor(model => model.AnalystTargetPrice)</p>
+                    <p><span>52 Week High:</span> @Html.DisplayFor(model => model._52WeekHigh)</p>
+                </div>
+                <div  class="details-div">
+                    <p><span>Market Cap:</span> @Html.DisplayFor(model => model.MarketCapitalization)</p>
+                    <p><span>Dividend Per Share:</span> @Html.DisplayFor(model => model.DividendPerShare)</p>
+                    <p><span>52 Week Low:</span> @Html.DisplayFor(model => model._52WeekLow)</p>
+                </div>
+                <div  class="details-div">
+                    <p><span>Company Address:</span> @Html.DisplayFor(model => model.Address)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

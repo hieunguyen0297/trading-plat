@@ -1,24 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using TradingPlat.APIManager;
+using TradingPlat.DBManager;
 using TradingPlat.Models;
 
 namespace TradingPlat.Controllers
 {
     public class StockController : Controller
     {
-        //Get a list of stock when user accessing the Stock List page
-        public IActionResult GetStocks()
+        private DB db;
+        //Generate a new instance of StockDB in the constructor
+        public StockController()
         {
-            List<StockModel> stocks = new List<StockModel>();
-            using (var db = new StockDBContext())
-            {
-                stocks = db.Stocks.ToList();
-            }
-            return View("StockList", stocks);
-           
+            db = new DB();
+        }
+
+        //Get a list of stock when user accessing the Stock List page
+        public IActionResult WatchList()
+        {
+            return View("StockList", db.GetStocks());
+        }
+
+        //Get stock details
+        public async Task<ActionResult> Details(int id)
+        {
+            //Get stock by ID
+            StockModel stock = db.GetStock(id);
+
+            //Make a new instace of ExternalAPI class
+            ExternalAPI api = new ExternalAPI();
+
+            //Call API to get the company stock information
+            Company info = await api.GetStockInfor(stock.Symbol);
+
+            //Return a view with the company information
+            return View("StockDetails", info);
         }
     }
 }
