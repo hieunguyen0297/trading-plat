@@ -31,12 +31,11 @@
 
 
 
-
 //CREATE CANDLE STICK CHART
 
 let symbol = document.querySelector(".symbol").innerHTML;
 let url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + String(symbol) + "&apikey=T496J6ATH5QH6NY9";
-console.log(url)
+
 fetch(url)
 	.then(response => response.json())
 	.then(data => {

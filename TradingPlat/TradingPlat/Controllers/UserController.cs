@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TradingPlat.DBManager;
 using TradingPlat.Models;
@@ -87,8 +86,9 @@ namespace TradingPlat.Controllers
                 if(userr != null)
                 {
                     //Establish a session after user signed in
-                    HttpContext.Session.SetString(SessionKeyName, userr.FirstName);
+                    HttpContext.Session.SetString(SessionKeyName, userr.FirstName.ToUpper() + " " + userr.LastName.ToUpper());
                     HttpContext.Session.SetInt32(SessionKeyId, userr.UserID);
+                    
                     //Redirect to home page
                     return Redirect("/home/index");
                 }
@@ -102,5 +102,12 @@ namespace TradingPlat.Controllers
             
         }
 
+
+        //Create Logout
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Redirect("/home/index");
+        }
     }
 }

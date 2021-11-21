@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TradingPlat.APIManager;
 using TradingPlat.DBManager;
@@ -24,6 +25,7 @@ namespace TradingPlat.Controllers
         //Get stock details
         public async Task<ActionResult> Details(int id)
         {
+            ViewBag.id = id;
             //Get stock by ID
             StockModel stock = db.GetStock(id);
 
@@ -35,6 +37,19 @@ namespace TradingPlat.Controllers
 
             //Return a view with the company information
             return View("StockDetails", info);
+        }
+
+
+
+        //Purchase stock process
+        
+        public IActionResult PurchaseStock(int stockId, int userId, decimal price, int quantity)
+        {
+            //ViewBag.stockId = stockId;
+            //ViewBag.userId = userId;
+            //ViewBag.price = price;
+            //ViewBag.quantity = quantity;
+            return View("Confirmation");
         }
     }
 }

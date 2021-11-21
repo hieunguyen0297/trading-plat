@@ -356,3 +356,9 @@ a.homepage-btn:hover:after{
     grid-template-columns: 1fr 1fr 0.8fr;
     width: 100%;
 }
+
+
+ul li {
+   text-decoration:none;
+    list-style:none;
+}

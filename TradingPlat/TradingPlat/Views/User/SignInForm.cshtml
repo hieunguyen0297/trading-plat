@@ -1,10 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model TradingPlat.Models.UserModel;
+@{ 
+    ViewData["Title"] = "Sign In";
 }
-<div>
-    <h1>Login</h1>
-    <p>@ViewBag.name</p>
-    <p>@ViewBag.id</p>
+
+<div style="background: linear-gradient(to top right, #33ccff 0%, #66ffff 100%); height: 100%">
+    <div style="display:flex; justify-content:center; align-items:center; height:100%">
+        <div class="container" style=" position: relative; height: 80%; padding: 20px; background-color: white; backdrop-filter: blur(9.7px); width: 40%; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); display: flex; justify-content: center; align-items: center; flex-direction: column ">
+            <h1 style="position: absolute; top: 50px; font-weight: 600; text-align: center; color: cornflowerblue;"><i class="fas fa-sign-in-alt"></i> Sign In</h1>
+            <form asp-controller="User" asp-action="ProcessSignIn" style="width:80%">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                @if (ViewBag.error != null)
+                {
+                    <span class="badge badge-danger">@ViewBag.error</span>
+                }
+                
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" required asp-for="Email" />
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" required asp-for="Password" />
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4" style="position: relative; top: 20px;">Sign In</button>
+            </form>
+            <div style="padding:20px">
+                <p>Don't have an account? <a href="/user/signup">Sign Up</a></p>
+            </div>
+        </div>
+    </div>
 </div>

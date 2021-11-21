@@ -51,7 +51,7 @@ namespace TradingPlat.DBManager
         }
 
 
-        //Find user
+        //Find user by email
         public UserModel FindUserByEmail(string email)
         {
             //find user in the database

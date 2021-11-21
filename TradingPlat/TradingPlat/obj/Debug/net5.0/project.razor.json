@@ -15624,6 +15624,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\User\\SignInForm.cshtml",
+      "TargetPath": "Views\\User\\SignInForm.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
@@ -15641,6 +15646,21 @@
     {
       "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\User\\UserRegisterSuccess.cshtml",
+      "TargetPath": "Views\\User\\UserRegisterSuccess.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\Stock\\Confirmation.cshtml",
+      "TargetPath": "Views\\Stock\\Confirmation.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\User\\SignUpForm.cshtml",
+      "TargetPath": "Views\\User\\SignUpForm.cshtml",
       "FileKind": "mvc"
     },
     {

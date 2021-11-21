@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -14,12 +17,16 @@
 <body>
     <section class="glass">
         <header class="dashboard">
+            @Html.AntiForgeryToken()
+            @if (Context.Session.GetString("_Name") != null)
+            {
+                <div class="user" style="transition:1s">
+                    <img src="./images/avatar.png" alt="" />
+                    <h3>@Context.Session.GetString("_Name")</h3>
+                    <p>Member</p>
+                </div>
+            }
 
-            <div class="user">
-                <img src="./images/avatar.png" alt="" />
-                <h3>Simo Edwin</h3>
-                <p>Pro Member</p>
-            </div>
             <div class="links">
                 <div class="link">
                     <ul class="navbar-nav flex-grow-1 ul-nav">
@@ -37,10 +44,21 @@
 
             </div>
             <div>
-                <ul>
-                    <li><a asp-controller="User" asp-action="SignUp">Sign Up</a></li>
-                    <li><a asp-controller="User" asp-action="SignIn">Sign In</a></li>
+                <ul class="navbar-nav flex-grow-1 ul-nav">
+                    @if (Context.Session.GetString("_Name") == null)
+                    {
+                        <li><a asp-controller="User" asp-action="SignIn">Sign In</a></li>
+                        <li style="width: 100px; height:2px; background-color:black"></li>
+                        <li><a asp-controller="User" asp-action="SignUp">Sign Up</a></li>
+
+                    }
+                    else
+                    {
+                        <li><a asp-controller="User" asp-action="Logout" class="btn btn-warning">Logout</a></li>
+                    }
                 </ul>
+
+
             </div>
 
         </header>
@@ -50,34 +68,46 @@
 
         </div>
     </section>
+
     <!--Modal display when clicked-->
     <div class="modal fade" id="exampleModal" tabindex="1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Confirm</button>
-                    </form>
-                </div>
+                @if (Context.Session.GetInt32("_Id") != null)
+                 {
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Buy Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form asp-controller="Stock" asp-action="PurchaseStock">
+                            <div class="form-group">                                
+                                <input class="form-control" name="stockId" value="@ViewBag.id" hidden/>
+                                <input class="form-control" name="userId" value="@Context.Session.GetInt32("_Id")" hidden/>
+                            </div>
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input class="form-control" name="price">
+
+                            </div>
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" class="form-control" name="quantity" />
+
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </form>
+                    </div>
+                 }
+                 else
+                 {
+                    <h4>You have not signed in! <a href="/user/signin">Sign In</a></h4>
+                 }
+
 
             </div>
         </div>
@@ -88,6 +118,7 @@
             &copy; 2021 - TradingPlat - Hieu Nguyen
         </div>
     </footer>
+
     <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
