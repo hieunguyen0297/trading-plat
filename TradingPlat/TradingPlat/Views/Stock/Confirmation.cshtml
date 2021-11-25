@@ -3,7 +3,21 @@
 *@
 @{
 }
-<h1>@ViewBag.price</h1>
-<h2>@ViewBag.quantity</h2>
-<h3>@ViewBag.stockId</h3>
-<h3>@ViewBag.userId</h3>
+@if (ViewBag.error != null)
+{
+<div class="container">
+    <h2>Ops, Something went wrong!</h2>
+    <p><span class="badge badge-danger">Sorry, @ViewBag.error</span></p>
+    <p>Please try again!</p>
+    <p><a href="/stock/watchlist">Retry</a></p>
+</div>
+    
+}
+else
+{
+    <h1>@ViewBag.price</h1>
+    <h2>@ViewBag.quantity</h2>
+    <h3>@ViewBag.stockId</h3>
+    <h3>@ViewBag.userId</h3>
+    <h3>@ViewBag.balance</h3>
+}

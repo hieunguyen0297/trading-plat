@@ -7,6 +7,7 @@ namespace TradingPlat.Models
         public DbSet<StockModel> Stocks { get; set; }
         public DbSet<PortfolioStockModel> PortfolioStocks { get; set; }
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
         public string Path { get; set; }
 

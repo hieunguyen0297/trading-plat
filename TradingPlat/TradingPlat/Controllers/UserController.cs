@@ -88,7 +88,16 @@ namespace TradingPlat.Controllers
                     //Establish a session after user signed in
                     HttpContext.Session.SetString(SessionKeyName, userr.FirstName.ToUpper() + " " + userr.LastName.ToUpper());
                     HttpContext.Session.SetInt32(SessionKeyId, userr.UserID);
-                    
+
+                    //Find user id in the Accounts table 
+                    Account account = db.FindUserInvestingAccountByUserId(userr.UserID);
+
+                    //If account not found in the Accounts table, insert a new record
+                    if(account == null)
+                    {
+                        db.InsertNewAccountIntoAccountsTable(userr.UserID);
+                    }
+
                     //Redirect to home page
                     return Redirect("/home/index");
                 }

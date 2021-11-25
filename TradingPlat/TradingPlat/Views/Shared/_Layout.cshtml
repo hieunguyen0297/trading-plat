@@ -82,20 +82,25 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        
+                        <h6>Current Price: @ViewBag.latestPrice</h6>
+                        @if (ViewBag.error != null)
+                        {
+                            <span class="badge badge-danger">@ViewBag.error</span>
+                        }
                         <form asp-controller="Stock" asp-action="PurchaseStock">
-                            <div class="form-group">                                
-                                <input class="form-control" name="stockId" value="@ViewBag.id" hidden/>
-                                <input class="form-control" name="userId" value="@Context.Session.GetInt32("_Id")" hidden/>
+                            <div class="form-group">
+                                <input class="form-control" name="stockId" value="@ViewBag.id" hidden />
+                                <input class="form-control" name="userId" value="@Context.Session.GetInt32("_Id")" hidden />
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
-                                <input class="form-control" name="price">
+                             
+                                <input type="number" min="@ViewBag.latestPrice" value="@ViewBag.latestPrice" max="@ViewBag.latestPrice" class="form-control" name="price" required>
 
                             </div>
                             <div class="form-group">
                                 <label>Quantity</label>
-                                <input type="number" class="form-control" name="quantity" />
+                                <input type="number" min="1" max="100000" class="form-control" name="quantity" required />
 
                             </div>
 

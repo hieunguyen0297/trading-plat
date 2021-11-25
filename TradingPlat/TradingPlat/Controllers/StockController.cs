@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using TradingPlat.APIManager;
 using TradingPlat.DBManager;
@@ -25,7 +26,7 @@ namespace TradingPlat.Controllers
         //Get stock details
         public async Task<ActionResult> Details(int id)
         {
-            ViewBag.id = id;
+            
             //Get stock by ID
             StockModel stock = db.GetStock(id);
 
@@ -35,6 +36,10 @@ namespace TradingPlat.Controllers
             //Call API to get the company stock information
             Company info = await api.GetStockInfor(stock.Symbol);
 
+            //Set viewbag and send it to use somewhere else in the application
+            ViewBag.id = id;
+            ViewBag.latestPrice = info.StockLastestPrice;
+
             //Return a view with the company information
             return View("StockDetails", info);
         }
@@ -42,14 +47,29 @@ namespace TradingPlat.Controllers
 
 
         //Purchase stock process
-        
+        [HttpPost]
         public IActionResult PurchaseStock(int stockId, int userId, decimal price, int quantity)
         {
-            //ViewBag.stockId = stockId;
-            //ViewBag.userId = userId;
-            //ViewBag.price = price;
-            //ViewBag.quantity = quantity;
-            return View("Confirmation");
+            //Get balance and check balance to make sure user have enough money to buy stock
+            if (ModelState.IsValid)
+            {
+                decimal balance = db.GetAccountBalance(userId);
+                decimal total = quantity * price;
+                if(total < balance)
+                {
+                    ViewBag.price = price;
+                    ViewBag.quantity = quantity;
+                    return View("Confirmation");       
+                }        
+                else if(total > balance)
+                {
+                    ViewBag.error = "You don't have enough fund.";
+                    return View("Confirmation");
+                }            
+            }
+
+            //Default return 
+            return View();
         }
     }
 }

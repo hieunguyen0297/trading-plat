@@ -66,5 +66,42 @@ namespace TradingPlat.DBManager
             UserModel user = _db.Users.Where(u => u.Email == email && u.Password == password).FirstOrDefault();
             return user;
         }
+
+        //Find user in the Accounts table
+        public Account FindUserInvestingAccountByUserId(int id)
+        {
+            Account account = _db.Accounts.Where(a => a.UserID == id).FirstOrDefault();
+            return account;
+        }
+
+
+
+        //Add userId to Account table
+        public int InsertNewAccountIntoAccountsTable(int id)
+        {
+
+            Account newAccount = new Account()
+            {
+                UserID = id,
+                Balance = 100000.00M
+            };
+
+            _db.Accounts.Add(newAccount);
+
+            int affected = _db.SaveChanges();
+
+            return (affected);
+        }
+
+
+        //Get account balance 
+        public decimal GetAccountBalance(int id)
+        {
+            Account account = _db.Accounts.Where(a => a.UserID == id).FirstOrDefault();
+            decimal balance = account.Balance;
+
+            return balance;
+        }
+
     }
 }

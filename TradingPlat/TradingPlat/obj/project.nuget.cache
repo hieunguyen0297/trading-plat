@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "P9XAs0Wj6zU1Vo7c6n/rRJgOXrPjHAyGvF2GsGQUiWrYK+kg4Jw0mJnetVoIvpngk9wLIOYSwYF9c0UMKgBdJw==",
+  "dgSpecHash": "OUE6V5EwUPt7j+er86EsOsdnJ3QrkPyWTty1bRLLQs0hJkPTak47/m06+1jgKQtrPkq3CltMm3tgR9/dz9xhlA==",
   "success": true,
-  "projectFilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj",
+  "projectFilePath": "D:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HIEU NGUYEN\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\HIEU NGUYEN\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj": {}
+    "D:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj": {}
   },
   "projects": {
-    "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj": {
+    "D:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj",
+        "projectUniqueName": "D:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj",
         "projectName": "TradingPlat",
-        "projectPath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj",
+        "projectPath": "D:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\TradingPlat.csproj",
         "packagesPath": "C:\\Users\\HIEU NGUYEN\\.nuget\\packages\\",
-        "outputPath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\obj\\",
+        "outputPath": "D:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
