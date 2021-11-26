@@ -39,7 +39,7 @@ namespace TradingPlat.Controllers
             //Set viewbag and send it to use somewhere else in the application
             ViewBag.id = id;
             ViewBag.latestPrice = info.StockLastestPrice;
-
+            ViewBag.symbol = info.Symbol;
             //Return a view with the company information
             return View("StockDetails", info);
         }
@@ -48,7 +48,7 @@ namespace TradingPlat.Controllers
 
         //Purchase stock process
         [HttpPost]
-        public IActionResult PurchaseStock(int stockId, int userId, decimal price, int quantity)
+        public IActionResult PurchaseStock(int stockId, int userId, decimal price, int quantity, string symBol)
         {
             //Get balance and check balance to make sure user have enough money to buy stock
             if (ModelState.IsValid)
@@ -57,8 +57,15 @@ namespace TradingPlat.Controllers
                 decimal total = quantity * price;
                 if(total < balance)
                 {
+                    //Make a purchase
+                    db.PurchaseStock(stockId, userId, price, quantity);
+                    //Deduct from the account balance
+
+
                     ViewBag.price = price;
                     ViewBag.quantity = quantity;
+                    ViewBag.symbol = symBol;
+                    ViewBag.totalCost = total;
                     return View("Confirmation");       
                 }        
                 else if(total > balance)

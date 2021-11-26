@@ -89,6 +89,7 @@
                         }
                         <form asp-controller="Stock" asp-action="PurchaseStock">
                             <div class="form-group">
+                                <input class="form-control" name="symBol" value="@ViewBag.symbol" hidden />
                                 <input class="form-control" name="stockId" value="@ViewBag.id" hidden />
                                 <input class="form-control" name="userId" value="@Context.Session.GetInt32("_Id")" hidden />
                             </div>

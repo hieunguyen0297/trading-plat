@@ -103,5 +103,22 @@ namespace TradingPlat.DBManager
             return balance;
         }
 
+
+        //Purchase stock
+        public int PurchaseStock(int stockId, int userId, decimal price, int quantity)
+        {
+            PortfolioStockModel newRecord = new PortfolioStockModel()
+            {
+                StockID = stockId,
+                UserID = userId,
+                ExecutionPrice = price,
+                Quantity = quantity
+            };
+
+            _db.PortfolioStocks.Add(newRecord);
+            int afffected = _db.SaveChanges();
+            return afffected;
+
+        }
     }
 }
