@@ -103,6 +103,13 @@ namespace TradingPlat.DBManager
             return balance;
         }
 
+        //Find stock in the Portfolio table
+        public PortfolioStockModel FindStockInPortfolio(int stockId, int userId)
+        {
+            PortfolioStockModel stock = _db.PortfolioStocks.Where(s => s.StockID == stockId && s.UserID == userId).FirstOrDefault();
+            return stock;
+        }
+
 
         //Purchase stock
         public int PurchaseStock(int stockId, int userId, decimal price, int quantity)
@@ -119,6 +126,39 @@ namespace TradingPlat.DBManager
             int afffected = _db.SaveChanges();
             return afffected;
 
+        }
+
+        //Implement purchase more share
+        public int PurchaseMoreShares(int stockId, int userId, decimal averagePrice, int totalQuantity)
+        {
+            PortfolioStockModel stock = FindStockInPortfolio(stockId, userId);
+            stock.ExecutionPrice = averagePrice;
+            stock.Quantity = totalQuantity;
+            int affected = _db.SaveChanges();
+            return affected;
+        }
+
+        //Debit the account balance
+        public int DebitAccountBalance(int userId, decimal totalPrice)
+        {
+            Account account = _db.Accounts.Where(a => a.UserID == userId).FirstOrDefault();
+            decimal newBalance = account.Balance - totalPrice;
+            account.Balance = newBalance;
+            int affected = _db.SaveChanges();
+            return affected;
+        }
+
+
+        //Get stocks from portfolio
+        public List<PortfolioStockModel> GetStocksInPortfolio(int userId)
+        {
+            List<PortfolioStockModel> stocks = (from p in _db.PortfolioStocks
+                                               join s in _db.Stocks
+                                               on p.StockID equals s.StockID
+                                               where p.UserID == userId
+                                               select p).ToList();
+
+            return stocks;
         }
     }
 }

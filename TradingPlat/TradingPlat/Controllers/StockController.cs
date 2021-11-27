@@ -40,6 +40,7 @@ namespace TradingPlat.Controllers
             ViewBag.id = id;
             ViewBag.latestPrice = info.StockLastestPrice;
             ViewBag.symbol = info.Symbol;
+
             //Return a view with the company information
             return View("StockDetails", info);
         }
@@ -53,29 +54,74 @@ namespace TradingPlat.Controllers
             //Get balance and check balance to make sure user have enough money to buy stock
             if (ModelState.IsValid)
             {
+                //Get balance
                 decimal balance = db.GetAccountBalance(userId);
+                //Calculate total amount user has to pay
                 decimal total = quantity * price;
                 if(total < balance)
                 {
-                    //Make a purchase
-                    db.PurchaseStock(stockId, userId, price, quantity);
-                    //Deduct from the account balance
-
-
+                    //Find stock in the Portfolio
+                    PortfolioStockModel stock = db.FindStockInPortfolio(stockId, userId);
+                    
+                    //If stock not found (mean not own), then purchase the stock (mean insert new record)
+                    if(stock == null)
+                    {
+                        //Make a new purchase
+                        db.PurchaseStock(stockId, userId, price, quantity);
+                        //Debit from the account balance
+                        db.DebitAccountBalance(userId, total);
+                    }
+                    //If stock found (already own it), then purchase more shares (update new price and quantity)
+                    else
+                    {
+                        //Calculate quantity
+                        int totalQuantity = stock.Quantity + quantity;
+                        //Calculate the average for share
+                        decimal averagePrice = (stock.ExecutionPrice + price) / totalQuantity;
+                        //Purchase more of the stock
+                        db.PurchaseMoreShares(stockId, userId, averagePrice, totalQuantity);
+                        //Update the account balance
+                        db.DebitAccountBalance(userId, total);
+                    }
+                    
+                    
+                    //Send Viewbags to use in the confirmation page
+                    ViewBag.order = "Buy";
                     ViewBag.price = price;
                     ViewBag.quantity = quantity;
                     ViewBag.symbol = symBol;
                     ViewBag.totalCost = total;
+
+                    //Send a confirmation/error to user interface
                     return View("Confirmation");       
                 }        
                 else if(total > balance)
                 {
+                    //Set an error
                     ViewBag.error = "You don't have enough fund.";
+
+                    //Send a confirmation/error to user interface
                     return View("Confirmation");
                 }            
             }
 
             //Default return 
+            return View();
+        }
+
+        //Implement the get portfolio method
+        public IActionResult Porfolio()
+        {
+            if (ModelState.IsValid)
+            {
+                //Get the current signed in user
+                string user = HttpContext.Session.GetString("_Name");
+                if(user != null)
+                {
+                    int userId = (int)HttpContext.Session.GetInt32("_Id");
+                    db.GetStocksInPortfolio(userId);
+                }
+            }
             return View();
         }
     }

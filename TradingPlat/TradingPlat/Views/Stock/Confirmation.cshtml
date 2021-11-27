@@ -13,11 +13,20 @@
 </div>
     
 }
-else
+else if(ViewBag.order == "Buy")
 {
-    <h1>@ViewBag.price</h1>
-    <h2>@ViewBag.quantity</h2>
-    <h3>@ViewBag.symbol</h3>
-    <h3>Your total cost: @ViewBag.totalCost</h3>
+<div class="container p-3">
+    <h1>Confirmation</h1>
+    <h6>Congratulation! Your order has been processed successfully.</h6>
+    <h3 class="mt-3">Order Details</h3>
+    <h5 class="mt-2">Status: Filled</h5>
+    <h5 class="mt-2">Buy Order For: <span>@ViewBag.symbol</span></h5>
+    <h5 class="mt-2">Price: $@Math.Round(ViewBag.price, 2)</h5>
+    <h5 class="mt-2">Quantity: @ViewBag.quantity</h5>
+    <h4 class="mt-2">Your total cost: $@Math.Round(ViewBag.totalCost, 2) </h4>
+</div>
+    
   
 }
+
+

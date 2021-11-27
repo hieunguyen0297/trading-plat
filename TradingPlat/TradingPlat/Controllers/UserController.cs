@@ -47,7 +47,7 @@ namespace TradingPlat.Controllers
                     db.RegisterUser(user);
                     //return RedirectToAction("UserRegisterSuccess");
                     //After registered, redirect them to home page
-                    return Redirect("/home/index");
+                    return Redirect("/user/signin");
                    
                 }
                 else
