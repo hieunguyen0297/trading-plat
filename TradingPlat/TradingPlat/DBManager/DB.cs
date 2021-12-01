@@ -150,13 +150,13 @@ namespace TradingPlat.DBManager
 
 
         //Get stocks from portfolio
-        public List<PortfolioStockModel> GetStocksInPortfolio(int userId)
+        public List<Portfolio> GetStocksInPortfolio(int userId)
         {
-            List<PortfolioStockModel> stocks = (from p in _db.PortfolioStocks
+            List<Portfolio> stocks = (from p in _db.PortfolioStocks
                                                join s in _db.Stocks
                                                on p.StockID equals s.StockID
                                                where p.UserID == userId
-                                               select p).ToList();
+                                               select new Portfolio { PortfolioStock = p, Stock = s}).ToList();
 
             return stocks;
         }

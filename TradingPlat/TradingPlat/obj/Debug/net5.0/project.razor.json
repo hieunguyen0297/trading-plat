@@ -15654,6 +15654,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\Stock\\Portfolio.cshtml",
+      "TargetPath": "Views\\Stock\\Portfolio.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\Stock\\Confirmation.cshtml",
       "TargetPath": "Views\\Stock\\Confirmation.cshtml",
       "FileKind": "mvc"

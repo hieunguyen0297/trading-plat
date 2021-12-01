@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TradingPlat.Models.Portfolio>;
+@using Microsoft.AspNetCore.Http;
+
+
+@if (Context.Session.GetString("_Name") != null)
+{
+<div class="mydiv">
+    <div class="container mt-3">
+        <h1>Account Balance: <i class="fas fa-dollar-sign"></i>@ViewBag.accountBalance</h1>
+        <h3 class="mt-3">Your Stocks</h3>
+        <div class="row mb-3 ml-1 mr-2 mt-3">
+
+            @foreach (var item in Model)
+            {
+                <div class="card p-2 col bg-white border-primary h-100">
+                    <a class="card-block stretched-link text-decoration-none" href="">
+                        <h5 class="card-text text-dark">@item.Stock.Symbol</h5>
+                        <p class="card-text">Avg: @item.PortfolioStock.ExecutionPrice | Qty: @item.PortfolioStock.Quantity</p>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+}
+
+

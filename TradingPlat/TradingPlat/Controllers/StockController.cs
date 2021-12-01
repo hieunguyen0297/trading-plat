@@ -58,6 +58,7 @@ namespace TradingPlat.Controllers
                 decimal balance = db.GetAccountBalance(userId);
                 //Calculate total amount user has to pay
                 decimal total = quantity * price;
+
                 if(total < balance)
                 {
                     //Find stock in the Portfolio
@@ -110,18 +111,31 @@ namespace TradingPlat.Controllers
         }
 
         //Implement the get portfolio method
-        public IActionResult Porfolio()
+        public IActionResult Portfolio()
         {
             if (ModelState.IsValid)
             {
                 //Get the current signed in user
                 string user = HttpContext.Session.GetString("_Name");
+
                 if(user != null)
                 {
+                    //Get Id of the current loggin user
                     int userId = (int)HttpContext.Session.GetInt32("_Id");
-                    db.GetStocksInPortfolio(userId);
+
+                    //Get account balance
+                    ViewBag.accountBalance = db.GetAccountBalance(userId);
+
+                    //Send a view with a list of stocks they own
+                    return View("Portfolio", db.GetStocksInPortfolio(userId) );
+                }
+                else
+                {
+                    //Tell them to sign in
+                    return Redirect("/user/signin");
                 }
             }
+            //Default View
             return View();
         }
     }
