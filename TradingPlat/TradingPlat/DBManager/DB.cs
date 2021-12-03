@@ -128,6 +128,21 @@ namespace TradingPlat.DBManager
 
         }
 
+
+        //Sell stock
+        public int SellStock(int stockId, int userId, int quantity)
+        {
+            PortfolioStockModel stock = FindStockInPortfolio(stockId, userId);
+            stock.Quantity = stock.Quantity - quantity;
+            if(stock.Quantity == 0)
+            {
+                //Remove the whole record out the database
+                DeleteStockOutOfPortfolio(stock);
+            }
+            int affected = _db.SaveChanges();
+            return affected;
+        }
+
         //Implement purchase more share
         public int PurchaseMoreShares(int stockId, int userId, decimal averagePrice, int totalQuantity)
         {
@@ -148,6 +163,15 @@ namespace TradingPlat.DBManager
             return affected;
         }
 
+        //Credit account balance
+        public int CreditAccountBalance(int userId, decimal totalCreditReceive)
+        {
+            Account account = _db.Accounts.Where(a => a.UserID == userId).FirstOrDefault();
+            account.Balance = account.Balance + totalCreditReceive;
+            int affected = _db.SaveChanges();
+            return affected;
+        }
+
 
         //Get stocks from portfolio
         public List<Portfolio> GetStocksInPortfolio(int userId)
@@ -160,5 +184,27 @@ namespace TradingPlat.DBManager
 
             return stocks;
         }
+
+        //Get one stock from portfolio
+        public Portfolio GetOwnedStockDetails(int stockId,  int userId)
+        {
+            Portfolio stock = (from p in _db.PortfolioStocks
+                                      join s in _db.Stocks
+                                      on p.StockID equals s.StockID
+                                      where p.UserID == userId && s.StockID == stockId
+                                      select new Portfolio { PortfolioStock = p, Stock = s }).FirstOrDefault();
+            
+            return stock;
+        }
+
+
+        //Delete record
+        public int DeleteStockOutOfPortfolio(PortfolioStockModel stock)
+        {
+            _db.PortfolioStocks.Remove(stock);
+            int affected = _db.SaveChanges();
+            return affected;
+        }
+
     }
 }

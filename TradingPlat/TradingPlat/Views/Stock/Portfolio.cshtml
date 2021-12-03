@@ -13,9 +13,9 @@
             @foreach (var item in Model)
             {
                 <div class="card p-2 col bg-white border-primary h-100">
-                    <a class="card-block stretched-link text-decoration-none" href="">
+                    <a class="card-block stretched-link text-decoration-none" href="/Stock/OwnedStockDetails/@item.Stock.StockID">
                         <h5 class="card-text text-dark">@item.Stock.Symbol</h5>
-                        <p class="card-text">Avg: @item.PortfolioStock.ExecutionPrice | Qty: @item.PortfolioStock.Quantity</p>
+                        <p class="card-text">Avg: @Math.Round(item.PortfolioStock.ExecutionPrice, 2) | Qty: @item.PortfolioStock.Quantity</p>
                     </a>
                 </div>
             }

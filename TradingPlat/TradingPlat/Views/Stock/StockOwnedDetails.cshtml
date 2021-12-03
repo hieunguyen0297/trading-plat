@@ -1,0 +1,69 @@
+﻿@model TradingPlat.Models.Portfolio;
+@using Microsoft.AspNetCore.Http;
+
+
+@{ 
+    decimal CurrentPrice = ViewBag.price;
+    int TotalShare = Model.PortfolioStock.Quantity;
+    decimal ExecutionPrice = Model.PortfolioStock.ExecutionPrice;
+    decimal TotalCost = TotalShare * ExecutionPrice;
+    decimal MarketPrice = CurrentPrice * TotalShare;
+    decimal GainLoss = MarketPrice - TotalCost;
+
+}
+
+<div class="mydiv">
+    <div class="m-3">
+        <h2><i class="fas fa-info"></i> Details</h2>
+    </div>
+    <div class="container m-3 p-3 border border-dark w-75">
+        <div>
+            <h1>@Html.DisplayFor(model => model.Stock.Symbol)</h1>
+        </div>
+        <div class="d-flex">
+            <div class="w-50">
+                <h3>Market Value: <span>$@Math.Round(MarketPrice, 2)</span></h3>
+                <h4>Quantity: @TotalShare</h4>
+                <h4>Current Price: <span>$@Math.Round(CurrentPrice, 2)</span></h4>
+            </div>
+            <div class="w-50">
+                <h5>Average Price: <span>$@Math.Round(ExecutionPrice, 2)</span>/share</h5>
+                <h5>Total Amount Paid: <span>$@Math.Round(TotalCost, 2)</span></h5>
+                <h4>Gain/Loss: 
+                @if (GainLoss >= 0) { 
+                    <span class="text-success">$@Math.Round(GainLoss, 2)</span>
+                }
+                else
+                {
+                    <span class="text-danger">$@Math.Round(GainLoss, 2)</span>
+                }
+                </h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="container m-3 p-3 border border-dark w-50">
+        <form asp-controller="Stock" asp-action="SellStock">
+            <h2>Market Sell Order</h2>
+            <div class="form-group">
+                <input class="form-control" name="symBol" value="@Model.Stock.Symbol" hidden/>
+                <input class="form-control" name="stockId" value="@Model.Stock.StockID" hidden />
+                <input class="form-control" name="userId" value="@Context.Session.GetInt32("_Id")" hidden />
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <p>Only accept current market price</p>
+                <input type="number" min="@CurrentPrice" value="@CurrentPrice" max="@CurrentPrice" class="form-control w-75" name="price" required>
+
+            </div>
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" min="1" max="@TotalShare" class="form-control w-75" name="quantity" required />
+
+            </div>
+
+            <button type="submit" class="btn btn-warning">Confirm</button>
+        </form>
+    </div>
+  
+</div>

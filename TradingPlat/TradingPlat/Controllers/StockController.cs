@@ -78,7 +78,7 @@ namespace TradingPlat.Controllers
                         //Calculate quantity
                         int totalQuantity = stock.Quantity + quantity;
                         //Calculate the average for share
-                        decimal averagePrice = (stock.ExecutionPrice + price) / totalQuantity;
+                        decimal averagePrice = (stock.ExecutionPrice * stock.Quantity + total) / totalQuantity;
                         //Purchase more of the stock
                         db.PurchaseMoreShares(stockId, userId, averagePrice, totalQuantity);
                         //Update the account balance
@@ -136,6 +136,64 @@ namespace TradingPlat.Controllers
                 }
             }
             //Default View
+            return View();
+        }
+
+        //View the owned stock details in the portfolio
+        public async Task<IActionResult> OwnedStockDetails(int id)
+        {
+            if (ModelState.IsValid)
+            {               
+                //Get the current signed in user
+                string user = HttpContext.Session.GetString("_Name");
+
+                if (user != null)
+                {
+                    //Get Id of the current loggin user                  
+                    int userId = (int)HttpContext.Session.GetInt32("_Id");
+                    Portfolio stockDetails = db.GetOwnedStockDetails(id, userId);
+
+                    //Make a new instace of ExternalAPI class
+                    ExternalAPI api = new ExternalAPI();
+
+                    //Call api to get stock quote
+                    StockQuote stock = await api.GetStockPrice(stockDetails.Stock.Symbol);
+                    ViewBag.price = stock.Price;
+
+                    return View("StockOwnedDetails", stockDetails);
+                }
+                else
+                {
+                    //Tell them to sign in
+                    return Redirect("/user/signin");
+                }
+            }
+            return View();         
+        }
+
+        //Implement the sell process
+        public IActionResult SellStock(int stockId, int userId, decimal price, int quantity, string symBol)
+        {
+            if (ModelState.IsValid)
+            {
+                //Get total amount of money receive from the sell
+                decimal TotalCreditReceive = price * quantity;
+
+                //Implement the sell method
+                db.SellStock(stockId, userId, quantity);
+
+                //Update balance
+                db.CreditAccountBalance(userId, TotalCreditReceive);
+
+                //Send Viewbags to use in the confirmation page
+                ViewBag.order = "Sell";
+                ViewBag.price = price;
+                ViewBag.quantity = quantity;
+                ViewBag.symbol = symBol;
+                ViewBag.totalCreditReceive = TotalCreditReceive;
+
+                return View("Confirmation");
+            }
             return View();
         }
     }
