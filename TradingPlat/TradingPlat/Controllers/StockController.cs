@@ -26,7 +26,7 @@ namespace TradingPlat.Controllers
         //Get stock details
         public async Task<ActionResult> Details(int id)
         {
-            
+
             //Get stock by ID
             StockModel stock = db.GetStock(id);
 
@@ -36,6 +36,10 @@ namespace TradingPlat.Controllers
             //Call API to get the company stock information
             Company info = await api.GetStockInfor(stock.Symbol);
 
+            if(info.Symbol == null)
+            {
+                return View("Error");
+            }
             //Set viewbag and send it to use somewhere else in the application
             ViewBag.id = id;
             ViewBag.latestPrice = info.StockLastestPrice;

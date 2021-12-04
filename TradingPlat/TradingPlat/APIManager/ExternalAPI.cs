@@ -40,6 +40,11 @@ namespace TradingPlat.APIManager
                 //Wrap the response in a Json Object
                 JObject obj = JObject.Parse(Response);
 
+                if (obj["Note"] != null)
+                {
+                    return new Company();
+                }
+
                 //Get attributes from the JSON object
                 string stockSymbol = obj["Symbol"].ToString();
                 string name = obj["Name"].ToString();
@@ -91,6 +96,11 @@ namespace TradingPlat.APIManager
 
                     //Wrap the response in a JSON Object
                     JObject obj = JObject.Parse(Response);
+
+                    if(obj["Note"] != null)
+                    {
+                        return new StockQuote() { Symbol = null, Open = 0, High = 0, Low = 0, Price = 0, Change = 0, ChangePercent = null };
+                    }
 
                     //Attract data from the JSON object
                     string stockSymbol = obj["Global Quote"]["01. symbol"].ToString();

@@ -149,3 +149,4 @@ D:\IUPUI\FALL_2021\CIT_24200\MyApp\trading-plat\TradingPlat\TradingPlat\obj\Debu
 D:\IUPUI\FALL_2021\CIT_24200\MyApp\trading-plat\TradingPlat\TradingPlat\obj\Debug\net5.0\Razor\Views\Stock\Confirmation.cshtml.g.cs
 D:\IUPUI\FALL_2021\CIT_24200\MyApp\trading-plat\TradingPlat\TradingPlat\obj\Debug\net5.0\Razor\Views\Stock\Portfolio.cshtml.g.cs
 D:\IUPUI\FALL_2021\CIT_24200\MyApp\trading-plat\TradingPlat\TradingPlat\obj\Debug\net5.0\Razor\Views\Stock\StockOwnedDetails.cshtml.g.cs
+D:\IUPUI\FALL_2021\CIT_24200\MyApp\trading-plat\TradingPlat\TradingPlat\obj\Debug\net5.0\Razor\Views\Stock\Error.cshtml.g.cs

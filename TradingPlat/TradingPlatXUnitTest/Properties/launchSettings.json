@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TradingPlatXUnitTest": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat"
+    }
+  }
+}
