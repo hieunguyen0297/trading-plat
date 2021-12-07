@@ -15644,6 +15644,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\Stock\\StockOwnedDetails.cshtml",
+      "TargetPath": "Views\\Stock\\StockOwnedDetails.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
@@ -15661,6 +15666,11 @@
     {
       "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\Stock\\Confirmation.cshtml",
       "TargetPath": "Views\\Stock\\Confirmation.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\IUPUI\\FALL_2021\\CIT_24200\\MyApp\\trading-plat\\TradingPlat\\TradingPlat\\Views\\Stock\\Error.cshtml",
+      "TargetPath": "Views\\Stock\\Error.cshtml",
       "FileKind": "mvc"
     },
     {
