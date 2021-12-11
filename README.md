@@ -1,7 +1,7 @@
 # Simple stock trading simulator
 ## 1. Description of the app
 - It is an app that allow users to practice their stock-picking skills without investing real money. 
-- Investors log on if they have an account, or they will have to set up an account (using sign up feature of the app). 
+- Users log on if they have an account, or they will have to set up an account (using sign up feature of the app). 
 - Automatically get a set amount of simulated money with which to make simulated investments.
 ## 2. Key takeaways from the app
 - For beginning user (investors, traders), in a trading environments, stock simulators are a great way to develop investing skills.
