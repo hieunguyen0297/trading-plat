@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TradingPlat.APIManager;
 using TradingPlat.DBManager;
@@ -22,6 +23,36 @@ namespace TradingPlat.Controllers
         {
             return View("StockList", db.GetStocks());
         }
+
+        
+        //Search for stocks by company name or stock symbol
+        public IActionResult SearchStocks(string searchTerm)
+        {
+            List<StockModel> stocks;
+
+            //If input field is empty, return a watchlist
+            if (searchTerm == null || searchTerm.Trim().Length == 0)
+            {
+                return Redirect("WatchList");
+            }
+            //Otherwise, call SearchForStocks method that take a string of search term to find matched stocks
+            else
+            {
+                stocks = db.SearchForStocks(searchTerm);
+            }
+
+            //If there is no matches, return an a View with message
+            if(stocks.Count == 0)
+            {
+                return View("Empty");
+            }
+            //Found match stocks, return a View with stocks info
+            else
+            {
+                return View("StockList", stocks);
+            }
+        }
+
 
         //Get stock details
         public async Task<ActionResult> Details(int id)

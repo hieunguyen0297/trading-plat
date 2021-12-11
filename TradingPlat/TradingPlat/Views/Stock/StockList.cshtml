@@ -9,7 +9,10 @@
     <div class="container mt-3">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="font-weight-bold mb-3"><i class="far fa-list-alt mr-2"></i>Watch List</h1>
-            <input type="text" name="searchTerm" value="" class="w-25 rounded mr-2 inputStock" placeholder="Search stock" />
+            <form asp-controller="Stock" asp-action="SearchStocks">
+                <input type="text" name="searchTerm" value="" class="w-70 rounded mr-2 inputStock" placeholder="Search stock" />
+                <button type="submit" hidden></button>
+            </form>
         </div>
 
         <div class="row mb-3 ml-1 mr-2 mt-2">

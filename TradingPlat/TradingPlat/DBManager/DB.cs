@@ -23,6 +23,13 @@ namespace TradingPlat.DBManager
             return stocks;
         }
 
+        //Search for stocks by symbol or company name
+        public List<StockModel> SearchForStocks(string searchTerm)
+        {
+            List<StockModel> stocks = _db.Stocks.Where(s => s.StockName.ToUpper().Contains(searchTerm.ToUpper()) || s.Symbol.Contains(searchTerm.ToUpper())).ToList();
+            return stocks;
+        }
+
         //Get one stock from database
         public StockModel GetStock(int id)
         {

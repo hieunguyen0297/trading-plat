@@ -20,63 +20,70 @@ namespace TradingPlat.APIManager
         {
 
             Company company = null;
-
-            //Sending request to third party API using HttpClient
-            HttpResponseMessage Res = await _httpClient.GetAsync($"https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey=T496J6ATH5QH6NY9");
-
-            //Call GetStockPrice method to get the latest price of the stock
-            StockQuote stock = await GetStockPrice(symbol);
-
-            //Checking the response is successful or not which is sent using HttpClient
-            if (Res.IsSuccessStatusCode)
+            try
             {
-                //Storing the response details recieved from web api
-                var Response = await Res.Content.ReadAsStringAsync();
+                //Sending request to third party API using HttpClient
+                HttpResponseMessage Res = await FetchData($"https://www.alphavantage.co/query?function=OVERVIEW&symbol={symbol}&apikey=T496J6ATH5QH6NY9");
 
-                //Use  [JsonPropertyName("Wind")] to customize property name in Company class, 
-                //Then use line below to convert Json object into model object
-                //var outObject = JsonConvert.DeserializeObject<Company>(Response);
+                //Call GetStockPrice method to get the latest price of the stock
+                StockQuote stock = await GetStockPrice(symbol);
 
-                //Wrap the response in a Json Object
-                JObject obj = JObject.Parse(Response);
-
-                if (obj["Note"] != null)
+                //Checking the response is successful or not which is sent using HttpClient
+                if (Res.IsSuccessStatusCode)
                 {
-                    return new Company();
+                    //Storing the response details recieved from web api
+                    var Response = await Res.Content.ReadAsStringAsync();
+
+                    //Use  [JsonPropertyName("Wind")] to customize property name in Company class, 
+                    //Then use line below to convert Json object into model object
+                    //var outObject = JsonConvert.DeserializeObject<Company>(Response);
+
+                    //Wrap the response in a Json Object
+                    JObject obj = JObject.Parse(Response);
+
+                    if (obj["Note"] != null)
+                    {
+                        return new Company();
+                    }
+
+                    //Get attributes from the JSON object
+                    string stockSymbol = obj["Symbol"].ToString();
+                    string name = obj["Name"].ToString();
+                    string description = obj["Description"].ToString();
+                    string exchange = obj["Exchange"].ToString();
+                    string sector = obj["Sector"].ToString();
+                    string industry = obj["Industry"].ToString();
+                    string address = obj["Address"].ToString();
+                    string marketcap = obj["MarketCapitalization"].ToString();
+                    string dividentPerShare = obj["DividendPerShare"].ToString();
+                    string analysisPrice = obj["AnalystTargetPrice"].ToString();
+                    string weekHigh = obj["52WeekHigh"].ToString();
+                    string weeklow = obj["52WeekLow"].ToString();
+
+                    //Set value for Company class's attributes
+                    company = new Company()
+                    {
+                        Symbol = stockSymbol,
+                        Name = name,
+                        Description = description,
+                        Exchange = exchange,
+                        Sector = sector,
+                        Industry = industry,
+                        Address = address,
+                        MarketCapitalization = marketcap,
+                        DividendPerShare = dividentPerShare,
+                        AnalystTargetPrice = analysisPrice,
+                        _52WeekHigh = weekHigh,
+                        _52WeekLow = weeklow,
+                        StockLastestPrice = stock.Price,
+                        ChangeInPercent = stock.ChangePercent
+                    };
                 }
-
-                //Get attributes from the JSON object
-                string stockSymbol = obj["Symbol"].ToString();
-                string name = obj["Name"].ToString();
-                string description = obj["Description"].ToString();
-                string exchange = obj["Exchange"].ToString();
-                string sector = obj["Sector"].ToString();
-                string industry = obj["Industry"].ToString();
-                string address = obj["Address"].ToString();
-                string marketcap = obj["MarketCapitalization"].ToString();
-                string dividentPerShare = obj["DividendPerShare"].ToString();
-                string analysisPrice = obj["AnalystTargetPrice"].ToString();
-                string weekHigh = obj["52WeekHigh"].ToString();
-                string weeklow = obj["52WeekLow"].ToString();
-
-                //Set value for Company class's attributes
-                company = new Company() { 
-                    Symbol = stockSymbol, 
-                    Name = name, 
-                    Description = description, 
-                    Exchange = exchange, 
-                    Sector = sector, 
-                    Industry = industry, 
-                    Address = address, 
-                    MarketCapitalization = marketcap, 
-                    DividendPerShare = dividentPerShare, 
-                    AnalystTargetPrice = analysisPrice, 
-                    _52WeekHigh = weekHigh, 
-                    _52WeekLow = weeklow,
-                    StockLastestPrice = stock.Price,
-                    ChangeInPercent = stock.ChangePercent
-                };
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
+
             return company;
         }
 
@@ -87,8 +94,8 @@ namespace TradingPlat.APIManager
 
             try
             {
-                HttpResponseMessage Res = await _httpClient.GetAsync($"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey=T496J6ATH5QH6NY9");
-                Res.EnsureSuccessStatusCode();
+                HttpResponseMessage Res = await FetchData($"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey=T496J6ATH5QH6NY9");
+               
                 if (Res.IsSuccessStatusCode)
                 {
                     //Storing the response details recieved from web api
@@ -129,8 +136,22 @@ namespace TradingPlat.APIManager
                 Console.WriteLine(e.Message);
             }
             
-
             return stock;
+        }
+
+        public async Task<HttpResponseMessage> FetchData(string url)
+        {
+            HttpResponseMessage Res = null;
+            try
+            {
+                Res = await _httpClient.GetAsync(url);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return Res;
         }
     }
 }
