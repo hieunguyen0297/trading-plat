@@ -39,5 +39,21 @@ namespace TradingPlatXUnitTest
             //Assert
             Assert.IsAssignableFrom<ViewResult>(result);
         }
+
+        [Theory]
+        [InlineData("aapl")]
+        [InlineData("a")]
+        [InlineData("123")]
+        [InlineData("   ")]
+        //Microsoft.Data.Sqlite.SqliteException : SQLite Error 1: 'no such table: Stocks'
+        public void TestSearchStocks(string symbol)
+        {
+            //Arrange
+            StockController stockController = new StockController();
+            //Act
+            var result = stockController.SearchStocks(symbol);
+            //Assert
+            Assert.IsAssignableFrom<ViewResult>(result);
+        }
     }
 }
