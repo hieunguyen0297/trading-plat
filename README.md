@@ -15,7 +15,11 @@ The app won't support equity trades, options trades, limit and stop orders, and 
 Link: https://youtu.be/b_XTN7miJ7w
 ## 6. How to clone my project
 1. Navigate to the directory where you want to store the cloned directory.
-2. Copy and paste this URL
+2. Copy and paste this URL.
 ```
 git clone https://github.com/hieunguyen0297/trading-plat.git
 ```
+3. You're all set.
+
+#### Developed by `Hieu Nguyen` @github/hieunguyen0297
+#### Contact info `hieunguyen@alumni.iu.edu`
