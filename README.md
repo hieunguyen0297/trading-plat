@@ -10,9 +10,12 @@
 The app won't support equity trades, options trades, limit and stop orders, and short selling.
 ## 4. General diagram showing process flow
 ![app-flow](https://user-images.githubusercontent.com/73616304/145689760-0464e186-c06c-4b6c-a82b-19402b858569.png)
-## 5. How to clone the project using GitHub CLI
+## 5. Video demo how the app work
+[![My_video](https://img.youtube.com/vi/b_XTN7miJ7w/maxresdefault.jpg)](https://youtu.be/b_XTN7miJ7w) </br>
+Link: https://youtu.be/b_XTN7miJ7w
+## 6. How to clone my project
 1. Navigate to the directory where you want to store the cloned directory.
 2. Copy and paste this URL
 ```
-
+git clone https://github.com/hieunguyen0297/trading-plat.git
 ```
